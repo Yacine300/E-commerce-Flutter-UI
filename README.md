@@ -1,6 +1,6 @@
 # one
 
-A new Flutter project.
+A   E-commerce flutter ui project
 
 ## Getting Started
 

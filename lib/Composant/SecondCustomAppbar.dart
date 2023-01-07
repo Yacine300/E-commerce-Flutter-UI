@@ -37,7 +37,7 @@ class SecondCustomAppbar extends PreferredSize {
           dummyCartItems != null
               ? Text(
                   '${dummyCartItems.length} item',
-                  style: TextStyle(color: Colors.grey[300], fontSize: 12),
+                  style: TextStyle(color: Colors.grey[500], fontSize: 12),
                 )
               : const SizedBox(
                   height: 5,

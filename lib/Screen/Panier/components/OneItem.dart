@@ -39,7 +39,7 @@ class OneItem extends StatelessWidget {
               builder: (ctx) => AlertDialog(
                     title: const Text("delete"),
                     content: const Text(
-                        "Are you sure you want to delete the item ?"),
+                        "Are you sure you want to delete the product ?"),
                     actions: [
                       FlatButton(
                         onPressed: () {
@@ -51,7 +51,10 @@ class OneItem extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(ctx).pop(false);
                           },
-                          child: const Text('No')),
+                          child: const Text(
+                            'No',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
                     ],
                   ));
         },

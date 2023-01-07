@@ -16,9 +16,9 @@ class Orders with ChangeNotifier {
     return [..._items];
   }
 
-  void addOrder({List<Cart> myorder}) {
+  void addOrder({List<Cart> myorder, double total}) {
     DateTime now = DateTime.now();
-    final order = Order(id: now, orderProduit: myorder, total: 225.0);
+    final order = Order(id: now, orderProduit: myorder, total: total);
     _items.add(order);
 
     notifyListeners();

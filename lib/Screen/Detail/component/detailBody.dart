@@ -8,6 +8,7 @@ import 'package:one/Composant/SizeConfig.dart';
 import 'package:one/providers/products.dart';
 import 'package:provider/provider.dart';
 
+import 'ColorProduct.dart';
 import 'FrontImage.dart';
 
 class DetailBody extends StatefulWidget {
@@ -51,9 +52,61 @@ class _DetailBodyState extends State<DetailBody> {
         ProductInfo(
           monProduit: monProduit,
         ),
-        SelectorColorQuantity(
-          compteur: _compteur,
-          monProduit: monProduit,
+        SizedBox(
+          height: SizeConfiguration.screenHeight / 8,
+          width: SizeConfiguration.screenWidth,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // color
+
+              ColorProduct(
+                monProduit: monProduit,
+              ),
+
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _compteur++;
+                        });
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: const Text(
+                          "+",
+                          style: TextStyle(fontSize: 20, color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text("${_compteur}"),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          if (_compteur > 1) {
+                            _compteur--;
+                          }
+                        });
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: const Text(
+                          "-",
+                          style: TextStyle(fontSize: 30, color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         DetailButton(
           compteur: _compteur,

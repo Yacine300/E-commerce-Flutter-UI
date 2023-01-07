@@ -4,15 +4,15 @@ import 'package:one/providers/orders.dart';
 import 'package:provider/provider.dart';
 
 class ButtonCart extends StatelessWidget {
-  final dummyCartItems;
+  final dummyCartItems, total;
 
-  ButtonCart({this.dummyCartItems});
+  ButtonCart({this.dummyCartItems, this.total});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Provider.of<Orders>(context, listen: false)
-            .addOrder(myorder: dummyCartItems);
+            .addOrder(myorder: dummyCartItems, total: total);
         Provider.of<Carts>(context, listen: false).purchaseBuy();
       },
       child: const CircleAvatar(

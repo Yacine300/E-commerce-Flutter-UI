@@ -45,7 +45,6 @@ class Carts with ChangeNotifier {
     _dummyCartItems.forEach((cart) {
       _total += cart.itemQuantite * cart.cartProduit.prix;
     });
-    notifyListeners();
     return _total;
   }
 }

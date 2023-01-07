@@ -13,8 +13,8 @@ class HeaderOrder extends StatelessWidget {
       child: Center(
         child: Text(
           orderTotal.toString() + " \$",
-          maxLines: 1,
-          style: TextStyle(fontSize: 14, color: Colors.white),
+          maxLines: 2,
+          style: TextStyle(fontSize: 12, color: Colors.white),
         ),
       ),
     );

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:one/Screen/Panier/components/OneItem.dart';
-import 'package:one/Screen/Panier/components/OneCartItemBuilder.dart';
 import 'package:one/providers/Cart.dart';
 import 'package:one/Composant/SizeConfig.dart';
-import 'package:one/providers/orders.dart';
+
 import 'package:provider/provider.dart';
 
 import 'ButtonCart.dart';
@@ -21,6 +20,7 @@ class _PanierBodyState extends State<PanierBody> {
   Widget build(BuildContext context) {
     final myCart = Provider.of<Carts>(context, listen: false);
     final dummyCartItems = myCart.dummyCartItems;
+    final total = myCart.totalClculator();
 
     SizeConfiguration().init(context);
     return dummyCartItems.length == 0
@@ -41,15 +41,11 @@ class _PanierBodyState extends State<PanierBody> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Total(
-                      currentTotal: myCart.totalClculator(),
-                    ),
+                    Total(currentTotal: total),
                     SizedBox(
                       height: SizeConfiguration.defaultSize / 5,
                     ),
-                    ButtonCart(
-                      dummyCartItems: dummyCartItems,
-                    )
+                    ButtonCart(dummyCartItems: dummyCartItems, total: total)
                   ],
                 ),
               )

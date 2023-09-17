@@ -14,7 +14,7 @@ class Carts with ChangeNotifier {
 
   double _total = 0.0;
 
-  void addtoCart({Cart targetProduct, int produitId}) {
+  void addtoCart(Cart targetProduct, String produitId) {
     // _dummyCartItems.forEach((cart) {
     // if (cart.cartProduit.id == produitId) {
     // print(cart.cartProduit.id);

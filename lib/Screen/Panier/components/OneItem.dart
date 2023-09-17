@@ -10,7 +10,7 @@ class OneItem extends StatelessWidget {
   final Cart dummyCartItem;
   final Carts myCart;
 
-  OneItem({this.dummyCartItem, this.myCart});
+  OneItem({required this.dummyCartItem, required this.myCart});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class OneItem extends StatelessWidget {
                 )
               ],
             )),
-        key: Key(dummyCartItem.cartProduit.nom),
+        key: Key(dummyCartItem.cartProduit.id),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           myCart.delateCartItem(idItemCart: dummyCartItem.cartProduit.id);
@@ -41,13 +41,13 @@ class OneItem extends StatelessWidget {
                     content: const Text(
                         "Are you sure you want to delete the product ?"),
                     actions: [
-                      FlatButton(
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.of(ctx).pop(true);
                         },
                         child: const Text('Yes'),
                       ),
-                      FlatButton(
+                      ElevatedButton(
                           onPressed: () {
                             Navigator.of(ctx).pop(false);
                           },

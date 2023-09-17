@@ -5,9 +5,9 @@ import 'package:one/Screen/Orders/components/OneOrderTile.dart';
 
 class OneOrder extends StatelessWidget {
   final double orderTotal;
-  final DateTime orderId;
+  final String orderId;
 
-  OneOrder({this.orderTotal, this.orderId});
+  OneOrder({required this.orderTotal, required this.orderId});
   @override
   Widget build(BuildContext context) {
     return ListTile(

@@ -4,10 +4,10 @@ import 'package:one/Composant/Constant.dart';
 
 import 'dart:io';
 
-class DefaultAppbar extends PreferredSize {
+class DefaultAppbar extends StatelessWidget implements PreferredSize {
   final String title;
 
-  const DefaultAppbar({this.title});
+  const DefaultAppbar({required this.title});
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,13 @@ class DefaultAppbar extends PreferredSize {
       backgroundColor: couleurPricipal,
       elevation: 0,
       leading: IconButton(
-        onPressed: () => exit(0),
+        onPressed: () => Navigator.of(context).pop(),
         icon: SvgPicture.asset("assets/icons/exit.svg"),
       ),
     );
   }
+
+  @override
+  // TODO: implement child
+  Widget get child => throw UnimplementedError();
 }

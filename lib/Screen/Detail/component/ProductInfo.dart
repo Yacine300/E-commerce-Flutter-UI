@@ -7,7 +7,7 @@ import 'package:one/Composant/SizeConfig.dart';
 class ProductInfo extends StatefulWidget {
   final Product monProduit;
 
-  const ProductInfo({this.monProduit});
+  const ProductInfo({required this.monProduit});
   @override
   State<ProductInfo> createState() => _ProductInfoState(monProduit: monProduit);
 }
@@ -15,13 +15,15 @@ class ProductInfo extends StatefulWidget {
 class _ProductInfoState extends State<ProductInfo> {
   Product monProduit;
 
-  _ProductInfoState({this.monProduit});
+  _ProductInfoState({required this.monProduit});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: SizeConfiguration.defaultSize / 4),
+      padding: EdgeInsets.only(
+          top: SizeConfiguration.defaultSize * 0.2,
+          bottom: SizeConfiguration.defaultSize * 0.2),
       child: Container(
-        height: SizeConfiguration.screenHeight / 3.5,
+        height: 250,
         width: SizeConfiguration.screenWidth,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -59,12 +61,16 @@ class _ProductInfoState extends State<ProductInfo> {
                         }
                       },
                       child: SizedBox(
-                        height: 25,
-                        width: 25,
-                        child: monProduit.isLicked == false
-                            ? SvgPicture.asset("assets/icons/galb.svg")
-                            : SvgPicture.asset("assets/icons/galb_plein.svg"),
-                      )),
+                          height: 25,
+                          width: 25,
+                          child: Icon(
+                            monProduit.isLicked == false
+                                ? Icons.favorite_outline_outlined
+                                : Icons.favorite_outlined,
+                            color: monProduit.isLicked == false
+                                ? Colors.black
+                                : Colors.red,
+                          ))),
                 ],
               ),
               SizedBox(
@@ -84,6 +90,7 @@ class _ProductInfoState extends State<ProductInfo> {
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
+                            //  fontFamily: 'GloriaHallelujah',
                             fontSize: 30),
                       ),
                     ),

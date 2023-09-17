@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OneOrderBody extends StatelessWidget {
-  final DateTime orderId;
+  final String orderId;
 
-  OneOrderBody({this.orderId});
+  OneOrderBody({required this.orderId});
   @override
   Widget build(BuildContext context) {
     return Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one/Composant/SizeConfig.dart';
 
 class InitScreen extends StatelessWidget {
   static String routeName = "/initialisationScreen.dart";
@@ -6,14 +7,14 @@ class InitScreen extends StatelessWidget {
   const InitScreen();
   @override
   Widget build(BuildContext context) {
+    SizeConfiguration().init(context);
     return Scaffold(
       body: Container(
-        color: Colors.deepOrangeAccent,
-        child: Center(
-          child: Text(
-            'Cornucopia',
-            style: TextStyle(color: Colors.white, fontSize: 64),
-          ),
+        height: SizeConfiguration.screenHeight,
+        width: SizeConfiguration.screenWidth,
+        child: Image.asset(
+          'assets/images/intro.gif',
+          fit: BoxFit.cover,
         ),
       ),
     );

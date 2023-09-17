@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +8,7 @@ import 'package:one/Composant/SizeConfig.dart';
 import 'package:one/Screen/Home/Home.dart';
 import 'package:one/Screen/Sign_In/Sign_in_screen.dart';
 
+import '../../../Composant/server_host.dart';
 import 'FormError.dart';
 
 class SignForm extends StatefulWidget {
@@ -17,7 +20,9 @@ class _SignFormState extends State<SignForm> {
   final _keyForm = GlobalKey<FormState>();
 
   List<String> errors = [];
-  String _email, _password;
+  late String _email;
+  String _password = "", _confirmPassword = "";
+
   bool remember = false;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(
             height: SizeConfiguration.defaultSize / 4,
           ),
-          buildPassField(label: 'Confirm Password', hint: '******'),
+          buildConfirmPassField(label: 'Confirm Password', hint: '******'),
           SizedBox(
             height: SizeConfiguration.defaultSize / 4,
           ),
@@ -75,11 +80,14 @@ class _SignFormState extends State<SignForm> {
               children: [
                 Text("do have an accoungt on cornucopia ?"),
                 InkWell(
-                  onTap: () => Navigator.pushNamed(context, SignIn.routeName),
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, SignIn.routeName),
                   child: Text(
                     "Login",
                     style: TextStyle(
                         color: Colors.deepOrangeAccent,
+                        fontFamily: 'GloriaHallelujah',
+                        fontSize: 12,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -91,17 +99,16 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  Padding suffixCustom({String svgIcon}) {
+  Padding suffixCustom(String svgIcon) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
       child: SvgPicture.asset(svgIcon),
     );
   }
 
-  TextFormField buildEmailField(
-      {@required String label, @required String hint}) {
+  TextFormField buildEmailField({required String label, required String hint}) {
     return TextFormField(
-      onSaved: (newValue) => _email = newValue,
+      onSaved: (newValue) => _email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty && errors.contains(kEmailNullError)) {
           setState(() {
@@ -116,7 +123,7 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       validator: (value) {
-        if (value.isEmpty && !errors.contains(kEmailNullError)) {
+        if (value!.isEmpty && !errors.contains(kEmailNullError)) {
           setState(() {
             errors.add(kEmailNullError);
           });
@@ -133,7 +140,7 @@ class _SignFormState extends State<SignForm> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: suffixCustom(svgIcon: "assets/icons/Mail.svg"),
+        suffixIcon: suffixCustom("assets/icons/Mail.svg"),
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         labelText: label,
         hintText: hint,
@@ -149,22 +156,29 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  TextFormField buildPassField(
-      {@required String label, @required String hint}) {
+  TextFormField buildPassField({
+    required String label,
+    required String hint,
+  }) {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => _password = newValue,
+      onSaved: (newValue) => setState(() {
+        _password = newValue!;
+      }),
       onChanged: (value) {
+        setState(() {
+          _password = value;
+        });
         if (value.isNotEmpty && errors.contains(kPassNullError)) {
           setState(() {
             errors.remove(kPassNullError);
           });
-          return "";
+          return;
         }
         return null;
       },
       validator: (value) {
-        if (value.isEmpty && !errors.contains(kPassNullError)) {
+        if (value!.isEmpty && !errors.contains(kPassNullError)) {
           setState(() {
             errors.add(kPassNullError);
           });
@@ -174,7 +188,7 @@ class _SignFormState extends State<SignForm> {
       },
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
-        suffixIcon: suffixCustom(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: suffixCustom("assets/icons/Lock.svg"),
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: label,
@@ -191,25 +205,101 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  Widget customButton({@required String textButton}) {
-    return FlatButton(
-      height: SizeConfiguration.defaultSize / 2,
-      onPressed: () {
-        if (_keyForm.currentState.validate()) {
-          _keyForm.currentState.save();
-          Navigator.pushNamed(context, Home.routeName);
+  TextFormField buildConfirmPassField({
+    required String label,
+    required String hint,
+  }) {
+    return TextFormField(
+      obscureText: true,
+      onSaved: (newValue) => setState(() {
+        _confirmPassword = newValue!;
+      }),
+      onChanged: (value) {
+        setState(() {
+          _confirmPassword = value;
+        });
+        if (value.isNotEmpty && errors.contains(kConfirmPassNullError)) {
+          setState(() {
+            errors.remove(kConfirmPassNullError);
+          });
+          return;
         }
+        return null;
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Text(
-        textButton,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: 'roboto',
-            fontWeight: FontWeight.bold),
+      validator: (value) {
+        if (value!.isEmpty && !errors.contains(kConfirmPassNullError)) {
+          setState(() {
+            errors.add(kConfirmPassNullError);
+          });
+          return "";
+        }
+        return null;
+      },
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        suffixIcon: suffixCustom("assets/icons/Lock.svg"),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        labelText: label,
+        hintText: hint,
+        enabledBorder: OutlineInputBorder(
+            gapPadding: 05,
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder: OutlineInputBorder(
+            gapPadding: 05,
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.grey)),
       ),
-      color: Colors.deepOrangeAccent,
+    );
+  }
+
+  Widget customButton({required String textButton}) {
+    return SizedBox(
+      height: 50,
+      width: SizeConfiguration.defaultSize * 2,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(
+          Colors.deepOrangeAccent,
+        )),
+        onPressed: () async {
+          if (_keyForm.currentState!.validate() &&
+              _confirmPassword == _password) {
+            _keyForm.currentState!.save();
+            final url = Uri.parse('http://$SERVER_HOST:5000/user/signup');
+            final headers = {'Content-Type': 'application/json'};
+            final body = jsonEncode({'email': _email, 'password': _password});
+
+            final response = await http.post(url, headers: headers, body: body);
+            if (response.statusCode == 200) {
+              Navigator.pushReplacementNamed(context, Home.routeName);
+            } else if (response.statusCode == 409) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Email already exist'),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            }
+          } else if (_confirmPassword != _password) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Password Entered Do Not Match'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+          }
+        },
+        child: Text(
+          "Register",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'GloriaHallelujah',
+              fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }

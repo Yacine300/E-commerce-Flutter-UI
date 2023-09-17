@@ -1,7 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:one/Composant/Constant.dart';
 import 'package:one/Composant/SizeConfig.dart';
+import 'package:one/Composant/defaultAppbar.dart';
 import 'package:one/Screen/Sign_In/Sign_in_screen.dart';
 import 'package:one/Screen/Register/Register_screen.dart';
 
@@ -11,20 +14,19 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfiguration().init(context);
     return Scaffold(
-      appBar: monAppbar(context: context),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SpeechIntro(),
-          ImageIntro(),
-          SizedBox(
-            height: SizeConfiguration.defaultSize / 3,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfiguration.defaultSize / 5),
-            child: Column(
+      backgroundColor: Colors.white,
+      appBar: DefaultAppbar(title: ''),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SpeechIntro(),
+            ImageIntro(),
+            SizedBox(
+              height: 25,
+            ),
+            Column(
               children: [
                 customButton(
                     textButton: "Sign in",
@@ -41,68 +43,81 @@ class Intro extends StatelessWidget {
                     routeName: Register.routeName),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget secondCustomButton(
-      {@required String textButton,
-      @required BuildContext context,
-      @required String routeName,
-      Color couleur}) {
-    return SizedBox(
-        height: SizeConfiguration.defaultSize / 2,
+      {required String textButton,
+      required BuildContext context,
+      required String routeName,
+      Color? couleur}) {
+    return DelayedDisplay(
+      delay: Duration(milliseconds: 900),
+      slidingBeginOffset: Offset(0, 0),
+      slidingCurve: Curves.ease,
+      child: SizedBox(
+        height: 50,
         width: SizeConfiguration.defaultSize * 2,
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-              side: BorderSide(color: Colors.deepOrangeAccent)),
-          onPressed: () => Navigator.pushNamed(context, routeName),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(
+            Colors.deepOrangeAccent,
+          )),
+          onPressed: () => Navigator.pushReplacementNamed(context, routeName),
           child: Text(
-            textButton,
+            "Register",
             style: TextStyle(
-                color: Colors.deepOrangeAccent,
-                fontSize: 20,
-                fontFamily: 'roboto',
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: 'GloriaHallelujah',
                 fontWeight: FontWeight.bold),
           ),
-          color: Colors.white,
-        ));
+        ),
+      ),
+    );
   }
 
   Widget customButton(
-      {@required String textButton,
-      @required BuildContext context,
-      @required String routeName,
-      Color couleur}) {
-    return SizedBox(
-        height: SizeConfiguration.defaultSize / 2,
+      {required String textButton,
+      required BuildContext context,
+      required String routeName,
+      Color? couleur}) {
+    return DelayedDisplay(
+      delay: Duration(milliseconds: 900),
+      slidingBeginOffset: Offset(0, 0),
+      slidingCurve: Curves.ease,
+      child: SizedBox(
+        height: 50,
         width: SizeConfiguration.defaultSize * 2,
-        child: FlatButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          onPressed: () => Navigator.pushNamed(context, routeName),
+        child: ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(
+            Colors.deepOrangeAccent,
+          )),
+          onPressed: () => Navigator.pushReplacementNamed(context, routeName),
           child: Text(
-            textButton,
+            "login",
             style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
-                fontFamily: 'roboto',
+                fontSize: 16,
+                fontFamily: 'GloriaHallelujah',
                 fontWeight: FontWeight.bold),
           ),
-          color: Colors.deepOrangeAccent,
-        ));
+        ),
+      ),
+    );
   }
 
-  AppBar monAppbar({BuildContext context}) {
+  AppBar monAppbar({BuildContext? context}) {
     return AppBar(
       //title: Text("${SizeConfiguration.defaultSize}"),
-      backgroundColor: couleurPricipal,
+      backgroundColor: Colors.white,
       elevation: 0,
       leading: IconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => Navigator.pop(context!),
         icon: SvgPicture.asset("assets/icons/exit.svg"),
       ),
     );
@@ -124,27 +139,31 @@ class ImageIntro extends StatelessWidget {
 class SpeechIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: SizeConfiguration.defaultSize / 5),
-      child: SizedBox(
-        width: SizeConfiguration.screenWidth / 1.5,
-        height: SizeConfiguration.defaultSize * 1.5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "Discover your product",
-              maxLines: 2,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-            ),
-            Text(
-              "explore all the most exiting product and marks based on your favorite  flavour",
-              style: TextStyle(fontSize: 13, color: Colors.grey),
-              maxLines: 4,
-            )
-          ],
-        ),
+    return SizedBox(
+      width: SizeConfiguration.screenWidth * 0.65,
+      height: SizeConfiguration.defaultSize * 2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          AnimatedTextKit(
+            animatedTexts: [
+              TyperAnimatedText('Discover your product',
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32,
+                      fontFamily: 'GloriaHallelujah'),
+                  speed: Duration(milliseconds: 100)),
+            ],
+            totalRepeatCount: 1,
+          ),
+          SizedBox(height: 20),
+          Text(
+            "explore all the most exiting product and marks based on your favorite  flavour",
+            style: TextStyle(fontSize: 13, color: Colors.grey),
+            maxLines: 4,
+          ),
+        ],
       ),
     );
   }

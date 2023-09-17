@@ -7,7 +7,7 @@ import 'TileItem.dart';
 class OneCartItemBuilder extends StatelessWidget {
   final Cart dummyCartItems;
 
-  OneCartItemBuilder({this.dummyCartItems});
+  OneCartItemBuilder({required this.dummyCartItems});
 
   @override
   Widget build(BuildContext context) {

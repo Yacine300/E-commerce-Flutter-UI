@@ -5,12 +5,14 @@ import 'package:one/providers/Cart.dart';
 import 'package:one/providers/orders.dart';
 import 'package:provider/provider.dart';
 
-class SecondCustomAppbar extends PreferredSize {
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
-  final dummyCartItems;
+import '../models/Cart.dart';
+
+class SecondCustomAppbar extends StatelessWidget {
+  final List<Cart> dummyCartItems;
   final String title;
 
-  SecondCustomAppbar({this.dummyCartItems, @required this.title});
+  SecondCustomAppbar({required this.dummyCartItems, required this.title});
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -49,7 +51,7 @@ class SecondCustomAppbar extends PreferredSize {
             ? IconButton(
                 onPressed: () {
                   Provider.of<Orders>(context, listen: false)
-                      .addOrder(myorder: dummyCartItems);
+                      .addOrder(dummyCartItems, 0);
                   Provider.of<Carts>(context, listen: false).purchaseBuy();
 
                   ///Navigator.of(context).pop();

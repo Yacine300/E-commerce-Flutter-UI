@@ -7,7 +7,7 @@ import 'dummy_start_data.dart';
 class FooterSlider extends StatelessWidget {
   final int currentIndex;
 
-  const FooterSlider({this.currentIndex});
+  const FooterSlider({required this.currentIndex});
   @override
   Widget build(BuildContext context) {
     return Column(

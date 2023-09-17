@@ -17,6 +17,7 @@ class _SignInBodyState extends State<SignInBody> {
   Widget build(BuildContext context) {
     SizeConfiguration().init(context);
     return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
       child: Column(
         children: [
           IntroSignIn(),
@@ -30,7 +31,7 @@ class _SignInBodyState extends State<SignInBody> {
 class FormError extends StatelessWidget {
   final List<String> errors;
 
-  FormError({this.errors});
+  FormError({required this.errors});
   @override
   Widget build(BuildContext context) {
     return Column(

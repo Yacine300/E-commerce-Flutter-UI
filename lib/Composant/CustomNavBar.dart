@@ -9,7 +9,7 @@ import 'enum.dart';
 class CustomBottomNavBar extends StatelessWidget {
   final MenuState selectedMenu;
 
-  const CustomBottomNavBar({this.selectedMenu});
+  const CustomBottomNavBar({required this.selectedMenu});
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,16 @@ class CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/home.svg",
-                  color: MenuState.home == selectedMenu
-                      ? Colors.deepOrangeAccent
-                      : inActiveIconColor,
-                ),
-                onPressed: () => Navigator.pushNamed(context, Home.routeName),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/home.svg",
+                    color: MenuState.home == selectedMenu
+                        ? Colors.deepOrangeAccent
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, Home.routeName);
+                    if (MenuState.home == selectedMenu) {}
+                  }),
               IconButton(
                 icon: SvgPicture.asset(
                   "assets/icons/loop.svg",
@@ -54,24 +56,28 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/dashbord.svg",
-                  color: MenuState.order == selectedMenu
-                      ? Colors.deepOrangeAccent
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, OrdersScreen.routeName),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/dashbord.svg",
+                    color: MenuState.order == selectedMenu
+                        ? Colors.deepOrangeAccent
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, OrdersScreen.routeName);
+                    if (MenuState.order == selectedMenu) {}
+                  }),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/cart.svg",
-                  color: MenuState.cart == selectedMenu
-                      ? Colors.deepOrangeAccent
-                      : inActiveIconColor,
-                ),
-                onPressed: () => Navigator.pushNamed(context, Panier.routeName),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/cart.svg",
+                    color: MenuState.cart == selectedMenu
+                        ? Colors.deepOrangeAccent
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, Panier.routeName);
+                    if (MenuState.cart == selectedMenu) {}
+                  }),
             ],
           )),
     );

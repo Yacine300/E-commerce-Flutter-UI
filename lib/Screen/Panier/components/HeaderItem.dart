@@ -5,8 +5,8 @@ import 'package:one/providers/Cart.dart';
 
 class HeaderItem extends StatelessWidget {
   final Cart dummyCartItems;
+  HeaderItem({required this.dummyCartItems});
 
-  HeaderItem({this.dummyCartItems});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +14,8 @@ class HeaderItem extends StatelessWidget {
       width: SizeConfiguration.defaultSize,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22), color: Colors.grey[200]),
-      child: Image.asset(dummyCartItems.cartProduit.imagesProduit.first),
+      child: Image.network("http://192.168.218.2:5000/" +
+          dummyCartItems.cartProduit.imagesProduit.first),
     );
   }
 }

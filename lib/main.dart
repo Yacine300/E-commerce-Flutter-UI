@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:one/providers/Cart.dart';
-import 'package:one/Composant/Route.dart';
-import 'package:one/Screen/Start/Start_Screen.dart';
-import 'package:one/providers/orders.dart';
-import 'package:one/providers/products.dart';
+import 'package:one/controllers/carts.dart';
+import 'package:one/utils/route.dart';
+import 'package:one/controllers/orders.dart';
+import 'package:one/controllers/products.dart';
+import 'package:one/views/start_screen/Start_Screen.dart';
 
 import 'package:provider/provider.dart';
 

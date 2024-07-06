@@ -13,7 +13,7 @@ class Start extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      appBar: const DefaultAppbar(
+      appBar: DefaultAppbar(
         title: "",
       ),
       body: StartBody(),

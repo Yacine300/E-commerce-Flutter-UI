@@ -5,7 +5,7 @@ import 'package:one/Composant/SizeConfig.dart';
 class FormError extends StatelessWidget {
   final List<String> errors;
 
-  FormError({this.errors});
+  FormError({required this.errors});
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HeaderOrder extends StatelessWidget {
   final double orderTotal;
 
-  const HeaderOrder({this.orderTotal});
+  const HeaderOrder({required this.orderTotal});
 
   @override
   Widget build(BuildContext context) {

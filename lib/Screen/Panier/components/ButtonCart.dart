@@ -12,7 +12,7 @@ class ButtonCart extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Provider.of<Orders>(context, listen: false)
-            .addOrder(myorder: dummyCartItems, total: total);
+            .addOrder(dummyCartItems, total);
         Provider.of<Carts>(context, listen: false).purchaseBuy();
       },
       child: const CircleAvatar(

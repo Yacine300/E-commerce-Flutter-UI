@@ -3,5 +3,5 @@ import 'package:one/models/Product.dart';
 
 class ProductDeatilArgument {
   final Product product;
-  ProductDeatilArgument({@required this.product});
+  ProductDeatilArgument({required this.product});
 }

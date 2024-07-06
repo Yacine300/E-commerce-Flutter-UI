@@ -17,6 +17,7 @@ class _SignInBodyState extends State<RegisterBody> {
   Widget build(BuildContext context) {
     SizeConfiguration().init(context);
     return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
       child: Column(
         children: [
           IntroRegister(),

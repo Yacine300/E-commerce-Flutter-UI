@@ -1,17 +1,22 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
 import 'package:one/models/Product.dart';
 import 'package:one/Composant/SizeConfig.dart';
 import 'package:one/Screen/Detail/details.dart';
 import 'package:one/providers/products.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:provider/provider.dart';
 
+import '../../../Composant/server_host.dart';
 import 'ChampAction.dart';
 import 'HomeCategories.dart';
 import 'HomeHeader.dart';
 import 'HomePub.dart';
 import 'SpecialOffreCard.dart';
+
+List<Product>? product = [];
 
 class HomeBody extends StatefulWidget {
   @override
@@ -20,9 +25,23 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody> {
   @override
+  void initState() {
+    super.initState();
+    fetchProductData();
+  }
+
+  Future<void> fetchProductData() async {
+    final productData = Provider.of<Products>(context, listen: false);
+    await productData.fetchProduct();
+
+    setState(() {
+      product = productData.items;
+    });
+  }
+
+  String uri = "http://$SERVER_HOST:5000/";
+  @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
-    final product = productData.items;
     SizeConfiguration().init(context);
     return SafeArea(
       child: SingleChildScrollView(
@@ -30,35 +49,57 @@ class _HomeBodyState extends State<HomeBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
-            const HomeHeader(),
+            DelayedDisplay(
+                slidingCurve: Curves.ease,
+                slidingBeginOffset: Offset(0, 0),
+                delay: Duration(milliseconds: 700),
+                child: const HomeHeader()),
             SizedBox(height: getProportionateScreenHeight(40)),
-            const Pub(),
+            DelayedDisplay(
+                slidingCurve: Curves.ease,
+                slidingBeginOffset: Offset(0, 0),
+                delay: Duration(milliseconds: 1000),
+                child: const Pub()),
             SizedBox(height: getProportionateScreenHeight(20)),
-            const Categories(),
+            DelayedDisplay(
+                slidingCurve: Curves.ease,
+                slidingBeginOffset: Offset(0, 0),
+                delay: Duration(milliseconds: 1300),
+                child: const Categories()),
             SizedBox(height: getProportionateScreenHeight(20)),
-            ChampAction(
-              bigText: 'Special for you',
-              seeAll: "see all",
+            DelayedDisplay(
+              slidingCurve: Curves.ease,
+              slidingBeginOffset: Offset(0, 0),
+              delay: Duration(milliseconds: 1600),
+              child: ChampAction(
+                bigText: 'Special for you',
+                seeAll: "see all",
+              ),
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SpecialOfferCard(
-                    image: "assets/images/ImageBanner2.png",
-                    category: "Smartphone",
-                    numOfBrands: 18,
-                    press: () {},
-                  ),
-                  SpecialOfferCard(
-                    image: "assets/images/ImageBanner3.png",
-                    category: "Fashion",
-                    numOfBrands: 24,
-                    press: () {},
-                  ),
-                  SizedBox(width: getProportionateScreenWidth(20)),
-                ],
+            DelayedDisplay(
+              slidingCurve: Curves.ease,
+              slidingBeginOffset: Offset(0, 0),
+              delay: Duration(milliseconds: 1600),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SpecialOfferCard(
+                      image: "assets/images/ImageBanner2.png",
+                      category: "Smartphone",
+                      numOfBrands: 18,
+                      press: () {},
+                    ),
+                    SpecialOfferCard(
+                      image: "assets/images/ImageBanner3.png",
+                      category: "Fashion",
+                      numOfBrands: 24,
+                      press: () {},
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(20)),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: getProportionateScreenHeight(30)),
@@ -72,9 +113,9 @@ class _HomeBodyState extends State<HomeBody> {
                 horizontal: 20,
               ),
               child: GridView.builder(
-                  physics: ScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: product.length,
+                  itemCount: product!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: (SizeConfiguration.defaultSize /
@@ -84,7 +125,7 @@ class _HomeBodyState extends State<HomeBody> {
                     crossAxisSpacing: SizeConfiguration.defaultSize / 3,
                   ),
                   itemBuilder: (context, index) =>
-                      buildDiscoverItem(product: product[index])),
+                      buildDiscoverItem(product![index])),
             )
           ],
         ),
@@ -92,7 +133,7 @@ class _HomeBodyState extends State<HomeBody> {
     );
   }
 
-  Widget buildDiscoverItem({Product product}) {
+  Widget buildDiscoverItem(Product product) {
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -105,7 +146,7 @@ class _HomeBodyState extends State<HomeBody> {
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22), color: Colors.grey[200]),
+            borderRadius: BorderRadius.circular(7), color: Colors.grey[200]),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -115,12 +156,11 @@ class _HomeBodyState extends State<HomeBody> {
                 height: SizeConfiguration.defaultSize +
                     SizeConfiguration.defaultSize / 3,
                 child: Hero(
-                  tag: product.id,
-                  child: Image.asset(
-                    product.imagesProduit[0],
-                    fit: BoxFit.contain,
-                  ),
-                )),
+                    tag: product.id,
+                    child: Image.network(
+                      uri + product.imagesProduit[0],
+                      fit: BoxFit.contain,
+                    ))),
             Text(
               product.nom,
               style: TextStyle(fontWeight: FontWeight.w400),
@@ -137,7 +177,10 @@ class _HomeBodyState extends State<HomeBody> {
                 child: Center(
                   child: (const Text(
                     "+",
-                    style: TextStyle(fontSize: 22),
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontFamily: 'GloriaHallelujah'),
                   )),
                 ),
                 height: SizeConfiguration.defaultSize / 2.5,

@@ -11,6 +11,8 @@ import 'PanierVide.dart';
 import 'Total.dart';
 
 class PanierBody extends StatefulWidget {
+  final Carts myCart;
+  PanierBody({required this.myCart});
   @override
   State<PanierBody> createState() => _PanierBodyState();
 }
@@ -18,9 +20,8 @@ class PanierBody extends StatefulWidget {
 class _PanierBodyState extends State<PanierBody> {
   @override
   Widget build(BuildContext context) {
-    final myCart = Provider.of<Carts>(context, listen: false);
-    final dummyCartItems = myCart.dummyCartItems;
-    final total = myCart.totalClculator();
+    final dummyCartItems = widget.myCart.dummyCartItems;
+    final total = widget.myCart.totalClculator();
 
     SizeConfiguration().init(context);
     return dummyCartItems.length == 0
@@ -32,7 +33,7 @@ class _PanierBodyState extends State<PanierBody> {
                   itemCount: dummyCartItems.length,
                   itemBuilder: (context, index) => OneItem(
                         dummyCartItem: dummyCartItems[index],
-                        myCart: myCart,
+                        myCart: widget.myCart,
                       )),
               Positioned(
                 bottom: SizeConfiguration.defaultSize / 3,

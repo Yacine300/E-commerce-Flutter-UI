@@ -13,14 +13,21 @@ class IntroSignIn extends StatelessWidget {
           children: [
             Text(
               "Hello Again !",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'GloriaHallelujah'),
             ),
             SizedBox(
               height: SizeConfiguration.defaultSize / 10,
             ),
             Text(
               "wellcome back you have been missed",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+              style: TextStyle(
+                  fontSize: 16,
+                  // fontWeight: FontWeight.w100,
+                  fontFamily: 'GloriaHallelujah',
+                  color: Colors.grey[600]),
             ),
           ],
         ));

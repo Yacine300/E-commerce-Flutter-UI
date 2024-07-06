@@ -4,7 +4,7 @@ import 'package:one/Composant/SizeConfig.dart';
 class ChampAction extends StatelessWidget {
   final String bigText, seeAll;
 
-  const ChampAction({this.bigText, this.seeAll});
+  const ChampAction({required this.bigText, required this.seeAll});
   @override
   Widget build(BuildContext context) {
     return Padding(

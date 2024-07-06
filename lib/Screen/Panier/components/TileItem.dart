@@ -5,7 +5,7 @@ import 'package:one/models/Cart.dart';
 class TileItem extends StatelessWidget {
   final Cart dummyCartItems;
 
-  TileItem({this.dummyCartItems});
+  TileItem({required this.dummyCartItems});
   @override
   Widget build(BuildContext context) {
     return SizedBox(

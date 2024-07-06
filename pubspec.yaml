@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.11.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -44,6 +44,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+flutter_launcher_icons: ^0.13.1
+flutter_lints: ^2.0.2
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.jpg"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -84,7 +91,10 @@ flutter:
         - asset: assets/fonts/muli/Muli.ttf
         - asset: assets/fonts/muli/Muli-Bold.ttf
         - asset: assets/fonts/muli/Muli-Light.ttf
-  
+        
+    - family: GloriaHallelujah
+      fonts:
+        - asset: assets/fonts/GloriaHallelujah-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

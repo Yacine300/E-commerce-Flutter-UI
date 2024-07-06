@@ -8,7 +8,8 @@ import 'ColorProduct.dart';
 class SelectorColorQuantity extends StatefulWidget {
   final Product monProduit;
   final int compteur;
-  const SelectorColorQuantity({this.compteur, this.monProduit});
+  const SelectorColorQuantity(
+      {required this.compteur, required this.monProduit});
 
   @override
   State<SelectorColorQuantity> createState() =>
@@ -18,7 +19,8 @@ class SelectorColorQuantity extends StatefulWidget {
 class _SelectorColorQuantityState extends State<SelectorColorQuantity> {
   final Product monProduit;
   int compteur;
-  _SelectorColorQuantityState({this.compteur, this.monProduit});
+  _SelectorColorQuantityState(
+      {required this.compteur, required this.monProduit});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,7 +38,7 @@ class _SelectorColorQuantityState extends State<SelectorColorQuantity> {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(right: 10, left: 10),
                 child: InkWell(
                   onTap: () {
                     setState(() {

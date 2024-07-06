@@ -1,31 +1,43 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:one/Composant/SizeConfig.dart';
 
 class ItemSplash extends StatelessWidget {
   final String text, subText, image;
 
-  const ItemSplash({this.image, this.text, this.subText});
+  const ItemSplash(
+      {required this.image, required this.text, required this.subText});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(
-              top: SizeConfiguration.defaultSize / 3,
-              left: SizeConfiguration.defaultSize - 60),
+              top: SizeConfiguration.defaultSize * 0.1,
+              left: SizeConfiguration.defaultSize - 60,
+              right: SizeConfiguration.defaultSize - 60),
           child: SizedBox(
-            height: SizeConfiguration.defaultSize * 2,
+            height: SizeConfiguration.defaultSize * 2.5,
             width: SizeConfiguration.defaultSize * 3,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  maxLines: 2,
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TyperAnimatedText(text,
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32,
+                            fontFamily: 'GloriaHallelujah'),
+                        speed: Duration(milliseconds: 70)),
+                  ],
+                  totalRepeatCount: 1,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
                   subText,

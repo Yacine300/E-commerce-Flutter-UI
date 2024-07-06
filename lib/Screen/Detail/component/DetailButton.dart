@@ -10,37 +10,49 @@ class DetailButton extends StatelessWidget {
   final Product monProduit;
   final int compteur;
 
-  const DetailButton({this.compteur, this.monProduit});
+  const DetailButton({required this.compteur, required this.monProduit});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SizeConfiguration.screenWidth,
-      margin: EdgeInsets.symmetric(
-          horizontal: SizeConfiguration.defaultSize / 4,
-          vertical: SizeConfiguration.defaultSize / 4),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          color: Colors.white),
-      child: FlatButton(
-          onPressed: () async {
-            Cart targetProduct = Cart(
-              cartProduit: monProduit,
-              itemQuantite: compteur,
-            );
-            Provider.of<Carts>(context, listen: false).addtoCart(
-                targetProduct: targetProduct, produitId: monProduit.id);
+        height: 50,
+        margin: EdgeInsets.symmetric(
+            horizontal: SizeConfiguration.defaultSize / 4,
+            vertical: SizeConfiguration.defaultSize / 4),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+            color: Colors.transparent),
+        child: customButton(textButton: 'Add to Cart', context: context));
+  }
 
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('product added with success'),
-            ));
-          },
-          child: const Text(
-            'Add to cart',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          )),
+  Widget customButton({required String textButton, BuildContext? context}) {
+    return ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+        Colors.deepOrangeAccent,
+      )),
+      onPressed: () async {
+        Cart targetProduct = Cart(
+          cartProduit: monProduit,
+          itemQuantite: compteur,
+        );
+        Provider.of<Carts>(context!, listen: false)
+            .addtoCart(targetProduct, monProduit.id);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('product added with success'),
+        ));
+      },
+      child: Text(
+        textButton,
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontFamily: 'GloriaHallelujah',
+            fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

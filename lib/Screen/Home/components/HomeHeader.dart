@@ -14,13 +14,17 @@ class HomeHeader extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SearchField(),
+          Spacer(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
             numOfitem: 0,
             press: () => Navigator.pushNamed(context, Panier.routeName),
+          ),
+          SizedBox(
+            width: 10,
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",

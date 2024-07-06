@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Total extends StatelessWidget {
   final double currentTotal;
-  Total({this.currentTotal});
+  Total({required this.currentTotal});
   @override
   Widget build(BuildContext context) {
     return Column(

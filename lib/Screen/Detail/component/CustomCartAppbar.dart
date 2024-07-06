@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'CustomBackButton.dart';
 import 'ProductRating.dart';
 
-class CustomCartAppbar extends PreferredSize {
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
-  final productRating;
+class CustomCartAppbar extends StatelessWidget implements PreferredSize {
+  final dynamic productRating;
 
   const CustomCartAppbar({this.productRating});
+
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 
   @override
   Widget build(BuildContext context) {
@@ -23,4 +25,8 @@ class CustomCartAppbar extends PreferredSize {
           ),
         ));
   }
+
+  @override
+  // TODO: implement child
+  Widget get child => throw UnimplementedError();
 }

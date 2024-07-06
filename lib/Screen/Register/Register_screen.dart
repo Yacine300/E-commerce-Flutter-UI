@@ -1,3 +1,4 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one/Screen/Register/components/RegisterBody.dart';
@@ -9,10 +10,14 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const DefaultAppbar(
+      appBar: DefaultAppbar(
         title: "Register",
       ),
-      body: RegisterBody(),
+      body: DelayedDisplay(
+          slidingCurve: Curves.ease,
+          slidingBeginOffset: Offset(0, 0),
+          delay: Duration(milliseconds: 800),
+          child: RegisterBody()),
     );
   }
 }

@@ -2,34 +2,37 @@ import 'package:flutter/material.dart';
 
 import 'package:one/Screen/Detail/component/DetailButton.dart';
 import 'package:one/Screen/Detail/component/ProductInfo.dart';
-import 'package:one/Screen/Detail/component/SelectorColorQuantity.dart';
 
 import 'package:one/Composant/SizeConfig.dart';
 import 'package:one/providers/products.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Composant/server_host.dart';
+import '../../../models/Product.dart';
+import '../../Home/components/HomeBody.dart';
 import 'ColorProduct.dart';
 import 'FrontImage.dart';
 
 class DetailBody extends StatefulWidget {
-  final int produitID;
+  final String produitID;
   @override
   State<DetailBody> createState() => _DetailBodyState(produitID: produitID);
 
-  const DetailBody({this.produitID});
+  const DetailBody({required this.produitID});
 }
 
 class _DetailBodyState extends State<DetailBody> {
-  final int produitID;
-  _DetailBodyState({this.produitID});
+  final String produitID;
+  _DetailBodyState({required this.produitID});
 
   int _currentIndexSlector = 0;
-
+  String uri = "http://$SERVER_HOST:5000/";
   int _compteur = 01;
 
   @override
   Widget build(BuildContext context) {
-    final monProduit = Provider.of<Products>(context).findById(produitID);
+    final products = Provider.of<Products>(context, listen: false);
+    final monProduit = products.findById(produitID);
 
     SizeConfiguration().init(context);
     return ListView(
@@ -43,9 +46,11 @@ class _DetailBodyState extends State<DetailBody> {
           children: List.generate(
             monProduit.imagesProduit.length,
             (index) => Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: EdgeInsets.only(right: 5, left: 5),
               child: choixImage(
-                  imageProduct: monProduit.imagesProduit[index], index: index),
+                  imageProduct: monProduit.imagesProduit[index],
+                  index: index,
+                  url: uri),
             ),
           ),
         ),
@@ -71,24 +76,6 @@ class _DetailBodyState extends State<DetailBody> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          _compteur++;
-                        });
-                      },
-                      child: const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: const Text(
-                          "+",
-                          style: TextStyle(fontSize: 20, color: Colors.black87),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text("${_compteur}"),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
                           if (_compteur > 1) {
                             _compteur--;
                           }
@@ -98,7 +85,25 @@ class _DetailBodyState extends State<DetailBody> {
                         backgroundColor: Colors.white,
                         child: const Text(
                           "-",
-                          style: TextStyle(fontSize: 30, color: Colors.black87),
+                          style: TextStyle(fontSize: 20, color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text("$_compteur"),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _compteur++;
+                        });
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: const Text(
+                          "+",
+                          style: TextStyle(fontSize: 20, color: Colors.black87),
                         ),
                       ),
                     ),
@@ -116,7 +121,7 @@ class _DetailBodyState extends State<DetailBody> {
     );
   }
 
-  choixImage({imageProduct, index}) {
+  choixImage({imageProduct, index, url}) {
     return InkWell(
       onTap: () {
         setState(() {
@@ -124,11 +129,11 @@ class _DetailBodyState extends State<DetailBody> {
         });
       },
       child: Container(
-        height: 50,
-        width: 50,
+        height: SizeConfiguration.defaultSize * 0.6,
+        width: SizeConfiguration.defaultSize * 0.6,
         child: AspectRatio(
           aspectRatio: 40 / 40,
-          child: Image.asset(imageProduct),
+          child: Image.network(url + imageProduct),
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),

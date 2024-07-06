@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BuildDot extends StatelessWidget {
   final int index, currentIndex;
 
-  const BuildDot({this.index, this.currentIndex});
+  const BuildDot({required this.index, required this.currentIndex});
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(

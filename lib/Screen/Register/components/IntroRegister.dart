@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:one/Composant/SizeConfig.dart';
 
 class IntroRegister extends StatelessWidget {
@@ -13,14 +14,21 @@ class IntroRegister extends StatelessWidget {
           children: [
             const Text(
               "Welcome !",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'GloriaHallelujah'),
             ),
             SizedBox(
               height: SizeConfiguration.defaultSize / 10,
             ),
-            const Text(
+            Text(
               "Register on cornucopia",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+              style: TextStyle(
+                  fontSize: 16,
+                  // fontWeight: FontWeight.w100,
+                  fontFamily: 'GloriaHallelujah',
+                  color: Colors.grey[600]),
             ),
           ],
         ));

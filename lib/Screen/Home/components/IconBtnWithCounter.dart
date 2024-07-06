@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:one/Composant/SizeConfig.dart';
+import 'package:provider/provider.dart';
 
 class IconBtnWithCounter extends StatelessWidget {
   final String svgSrc;
   final int numOfitem;
   final GestureTapCallback press;
 
-  const IconBtnWithCounter({this.numOfitem, this.press, this.svgSrc});
+  const IconBtnWithCounter(
+      {required this.numOfitem, required this.press, required this.svgSrc});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(100),
+      borderRadius: BorderRadius.circular(50),
       onTap: press,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(12)),
-            height: getProportionateScreenWidth(46),
-            width: getProportionateScreenWidth(46),
+            height: getProportionateScreenWidth(40),
+            width: getProportionateScreenWidth(40),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(7)),
             child: SvgPicture.asset(svgSrc),
           ),
           if (numOfitem != 0)

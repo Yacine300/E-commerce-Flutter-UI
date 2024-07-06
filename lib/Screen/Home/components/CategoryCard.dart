@@ -4,9 +4,9 @@ import 'package:one/Composant/SizeConfig.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
-    @required this.icon,
-    @required this.text,
-    @required this.press,
+    required this.icon,
+    required this.text,
+    required this.press,
   });
 
   final String icon, text;
@@ -22,8 +22,8 @@ class CategoryCard extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-              height: getProportionateScreenWidth(55),
-              width: getProportionateScreenWidth(55),
+              height: getProportionateScreenWidth(50),
+              width: getProportionateScreenWidth(50),
               decoration: BoxDecoration(
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),

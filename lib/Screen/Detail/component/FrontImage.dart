@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../Composant/server_host.dart';
+
 class FrontImage extends StatelessWidget {
   final monProduit;
   final currentIndexSelector;
@@ -9,8 +11,12 @@ class FrontImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: AspectRatio(
-        aspectRatio: 80 / 40,
-        child: Image.asset(monProduit.imagesProduit[currentIndexSelector]),
+        aspectRatio: 40 / 20,
+        child: Image.network(
+          "http://$SERVER_HOST:5000/" +
+              monProduit.imagesProduit[currentIndexSelector],
+          fit: BoxFit.fitHeight,
+        ),
       ),
     );
   }

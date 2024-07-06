@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Cornucopia',
           theme: ThemeData(
+            useMaterial3: true,
             primarySwatch: Colors.blue,
             fontFamily: 'Manjari',
           ),

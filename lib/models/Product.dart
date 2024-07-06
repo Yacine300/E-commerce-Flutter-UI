@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
   String nom, descreption, type;
-  List<Color> couleurProduit;
+  List<String> couleurProduit;
   List<String> imagesProduit;
   double prix, rating;
-  int id;
+  String id;
   bool isLicked = false;
 
   Product(
-      {this.nom,
-      this.descreption,
-      this.type,
-      this.couleurProduit,
-      this.imagesProduit,
-      this.prix,
-      this.rating,
-      this.id,
-      this.isLicked});
+      {required this.nom,
+      required this.descreption,
+      required this.type,
+      required this.couleurProduit,
+      required this.imagesProduit,
+      required this.prix,
+      required this.rating,
+      required this.id,
+      required this.isLicked});
 }

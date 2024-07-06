@@ -1,3 +1,4 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
 import 'package:one/Composant/defaultAppbar.dart';
@@ -10,10 +11,14 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const DefaultAppbar(
+      appBar: DefaultAppbar(
         title: "Sign in",
       ),
-      body: SignInBody(),
+      body: DelayedDisplay(
+          slidingCurve: Curves.ease,
+          slidingBeginOffset: Offset(0, 0),
+          delay: Duration(milliseconds: 800),
+          child: SignInBody()),
     );
   }
 }

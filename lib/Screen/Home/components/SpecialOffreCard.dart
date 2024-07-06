@@ -7,10 +7,10 @@ class SpecialOfferCard extends StatelessWidget {
   final GestureTapCallback press;
 
   const SpecialOfferCard({
-    @required this.category,
-    @required this.image,
-    @required this.numOfBrands,
-    @required this.press,
+    required this.category,
+    required this.image,
+    required this.numOfBrands,
+    required this.press,
   });
 
   @override
@@ -23,7 +23,7 @@ class SpecialOfferCard extends StatelessWidget {
           width: getProportionateScreenWidth(242),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(7),
             child: Stack(
               children: [
                 Image.asset(

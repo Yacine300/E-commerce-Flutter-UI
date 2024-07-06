@@ -1,3 +1,4 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:one/Composant/SizeConfig.dart';
 
@@ -29,10 +30,17 @@ class _StartBodyState extends State<StartBody> {
               });
             },
             itemCount: startData.length,
-            itemBuilder: (context, index) => ItemSplash(
-              image: startData[index]["image"],
-              text: startData[index]["Bigtext"],
-              subText: startData[index]["subText"],
+            itemBuilder: (context, index) => DelayedDisplay(
+              delay: Duration(milliseconds: 300),
+              slidingCurve: Curves.ease,
+              slidingBeginOffset: Offset(0, 0),
+              child: SingleChildScrollView(
+                child: ItemSplash(
+                  image: startData[index]["image"]!,
+                  text: startData[index]["Bigtext"]!,
+                  subText: startData[index]["subText"]!,
+                ),
+              ),
             ),
           ),
         ),

@@ -4,5 +4,5 @@ class Cart {
   Product cartProduit;
   int itemQuantite;
 
-  Cart({this.cartProduit, this.itemQuantite});
+  Cart({required this.cartProduit, required this.itemQuantite});
 }

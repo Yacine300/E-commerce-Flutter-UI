@@ -1,6 +1,6 @@
 # E-commerce Flutter App
 
-![Cover Image](https://github.com/Yacine300/E-commerce-Flutter-UI/blob/master/assets/images/cover.png)
+![Cover Image](https://github.com/Yacine300/E-commerce-Flutter-UI/blob/master/assets/images/_cover.png)
 
 ## Overview
 
